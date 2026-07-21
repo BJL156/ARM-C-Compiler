@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(assembler C)
+project(compiler C)
 set(CMAKE_C_STANDARD 11)
 
 if(MSVC)
@@ -9,5 +9,5 @@ else()
 endif()
 
 file(GLOB SOURCES "src/*.c")
-add_executable(assembler ${SOURCES})
-target_include_directories(assembler PRIVATE src)
+add_executable(compiler ${SOURCES})
+target_include_directories(compiler PRIVATE src)

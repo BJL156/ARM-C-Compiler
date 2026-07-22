@@ -18,7 +18,7 @@ char peek_next(Lexer *lexer) {
   return lexer->src[lexer->pos + 1];
 }
 
-char advance(Lexer *lexer) {
+static char advance(Lexer *lexer) {
   char c = lexer->src[lexer->pos++];
   if (c == '\n') {
     lexer->line++;

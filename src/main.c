@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-   fclose(output);
+  fclose(output);
 
   return 0;
 }

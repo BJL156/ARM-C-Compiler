@@ -32,7 +32,7 @@ static char advance(Lexer *lexer) {
 
 void skip_whitespace(Lexer *lexer) {
   for (;;) {
-    while (peek(lexer) == ' ' || peek(lexer) == '\t' || peek(lexer) == '\n') {
+    while (peek(lexer) == ' ' || peek(lexer) == '\t' || peek(lexer) == '\n' || peek(lexer) == '\r') {
       advance(lexer);
     }
 

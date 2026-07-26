@@ -1,4 +1,5 @@
 #include "ast.h"
+#include "codegen.h"
 #include "lexer.h"
 #include "parser.h"
 
@@ -217,6 +218,10 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "Error: Failed to open \"%s\".\n", argv[2]);
     return 1;
   }
+
+  CodeGen codegen;
+  codegen_init(&codegen, output);
+  codegen_program(&codegen, &program);
 
   fclose(output);
 

@@ -1,3 +1,3 @@
-int f(int a) {
-  return !a;
+int f(int a, int b) {
+  return a < b;
 }

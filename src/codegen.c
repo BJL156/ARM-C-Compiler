@@ -102,6 +102,36 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
           fprintf(codegen->out, "\tsub x0, x1, x2\n");
           break;
         }
+        case TOKEN_EQ: {
+          fprintf(codegen->out, "\tcmp x1, x0\n");
+          codegen_bool_from_flags(codegen, "eq");
+          break;
+        }
+        case TOKEN_NEQ: {
+          fprintf(codegen->out, "\tcmp x1, x0\n");
+          codegen_bool_from_flags(codegen, "ne");
+          break;
+        }
+        case TOKEN_LT: {
+          fprintf(codegen->out, "\tcmp x1, x0\n");
+          codegen_bool_from_flags(codegen, "lt");
+          break;
+        }
+        case TOKEN_LE: {
+          fprintf(codegen->out, "\tcmp x1, x0\n");
+          codegen_bool_from_flags(codegen, "le");
+          break;
+        }
+        case TOKEN_GT: {
+          fprintf(codegen->out, "\tcmp x1, x0\n");
+          codegen_bool_from_flags(codegen, "gt");
+          break;
+        }
+        case TOKEN_GE: {
+          fprintf(codegen->out, "\tcmp x1, x0\n");
+          codegen_bool_from_flags(codegen, "ge");
+          break;
+        }
         default: {
           fprintf(stderr, "Error: codegen not implemented for binary operator: %d.\n", expr->binary.op);
           exit(1);

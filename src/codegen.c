@@ -50,6 +50,18 @@ int lookup_symbol(CodeGen *codegen, const char *name) {
   exit(1);
 }
 
+void codegen_bool_from_flags(CodeGen *codegen, const char *condition) {
+  int true_label = codegen->label_count++;
+  int end_label = codegen->label_count++;
+
+  fprintf(codegen->out, "\tb.%s .Ltrue%d\n", condition, true_label);
+  fprintf(codegen->out, "\tmov x0, #0\n");
+  fprintf(codegen->out, "\tb .Lend%d\n", end_label);
+  fprintf(codegen->out, ".Ltrue%d:\n", true_label);
+  fprintf(codegen->out, "\tmov x0, #1\n");
+  fprintf(codegen->out, ".Lend%d:\n", end_label);
+}
+
 void codegen_expr(CodeGen *codegen, Expr *expr) {
   switch (expr->type) {
     case EXPR_INT_LITERAL: {
@@ -92,6 +104,27 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
         }
         default: {
           fprintf(stderr, "Error: codegen not implemented for binary operator: %d.\n", expr->binary.op);
+          exit(1);
+        }
+      }
+
+      break;
+    }
+    case EXPR_UNARY: {
+      codegen_expr(codegen, expr->unary.operand);
+
+      switch (expr->unary.op) {
+        case TOKEN_MINUS: {
+          fprintf(codegen->out, "\tneg x0, x0\n");
+          break;
+        }
+        case TOKEN_NOT: {
+          fprintf(codegen->out, "\tcmp x0, #0\n");
+          codegen_bool_from_flags(codegen, "eq");
+          break;
+        }
+        default: {
+          fprintf(stderr, "Error: codegen not implemented for unary operator: %d.\n", expr->unary.op);
           exit(1);
         }
       }

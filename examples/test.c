@@ -1,8 +1,7 @@
 int f(int n) {
-  int i = 0;
-  while (i <= n) {
-    i = i + 1;
+  int sum = 0;
+  for (int i = 0; i < n; i = i + 1) {
+    sum = sum + i;
   }
-
-  return i;
+  return sum;
 }

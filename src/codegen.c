@@ -249,6 +249,33 @@ void codegen_stmt(CodeGen *codegen, Stmt *stmt) {
       codegen_expr(codegen, stmt->expr_stmt.expr);
       break;
     }
+    case STMT_FOR: {
+      int start_label = codegen->label_count++;
+      int end_label = codegen->label_count++;
+
+      if (stmt->for_stmt.init != NULL) {
+        codegen_stmt(codegen, stmt->for_stmt.init);
+      }
+
+      fprintf(codegen->out, ".Lstart%d:\n", start_label);
+
+      if (stmt->for_stmt.condition != NULL) {
+        codegen_expr(codegen, stmt->for_stmt.condition);
+        fprintf(codegen->out, "\tcmp x0, #0\n");
+        fprintf(codegen->out, "\tb.eq .Lend%d\n", end_label);
+      }
+
+      codegen_stmt(codegen, stmt->for_stmt.body);
+
+      if (stmt->for_stmt.increment != NULL) {
+        codegen_expr(codegen, stmt->for_stmt.increment);
+      }
+
+      fprintf(codegen->out, "\tb .Lstart%d\n", start_label);
+      fprintf(codegen->out, ".Lend%d:\n", end_label);
+
+      break;
+    }
     default: {
       fprintf(stderr, "Error: codegen not implemented for statement type: %d.\n", stmt->type);
       exit(1);

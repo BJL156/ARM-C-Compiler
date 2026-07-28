@@ -1,3 +1,7 @@
 int f(int a, int b) {
-  return a < b;
+  if (a < b) {
+    return a;
+  } else {
+    return b;
+  }
 }

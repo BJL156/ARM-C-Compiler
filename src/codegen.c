@@ -161,6 +161,13 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
 
       break;
     }
+    case EXPR_ASSIGN: {
+      codegen_expr(codegen, expr->assign.value);
+      int offset = lookup_symbol(codegen, expr->assign.target->name);
+
+      fprintf(codegen->out, "\tstr x0, [x29, #%d]\n", offset);
+      break;
+    }
     default: {
       fprintf(stderr, "Error: codegen not implemented for expression type: %d.\n", expr->type);
       exit(1);
@@ -182,6 +189,46 @@ void codegen_stmt(CodeGen *codegen, Stmt *stmt) {
       for (int i = 0; i < stmt->block.count; i++) {
         codegen_stmt(codegen, stmt->block.items[i]);
       }
+      break;
+    }
+    case STMT_VAR_DECL: {
+      codegen->next_offset -= 8;
+
+      Symbol symbol;
+      strncpy(symbol.name, stmt->var_decl.name, sizeof(symbol.name) -1);
+      symbol.offset = codegen->next_offset;
+
+      codegen->symbols[codegen->symbol_count++] = symbol;
+
+      if (stmt->var_decl.init) {
+        codegen_expr(codegen, stmt->var_decl.init);
+        fprintf(codegen->out, "\tstr x0, [x29, #%d]\n", symbol.offset);
+      }
+
+      break;
+    }
+    case STMT_IF: {
+      codegen_expr(codegen, stmt->if_stmt.condition);
+      fprintf(codegen->out, "\tcmp x0, #0\n");
+
+      if (stmt->if_stmt.else_branch) {
+        int else_label = codegen->label_count++;
+        int end_label = codegen->label_count++;
+
+        fprintf(codegen->out, "\tb.eq .Lelse%d\n", else_label);
+        codegen_stmt(codegen, stmt->if_stmt.then_branch);
+        fprintf(codegen->out, "\tb .Lend%d\n", end_label);
+        fprintf(codegen->out, ".Lelse%d:\n", else_label);
+        codegen_stmt(codegen, stmt->if_stmt.else_branch);
+        fprintf(codegen->out, ".Lend%d:\n", end_label);
+      } else {
+        int end_label = codegen->label_count++;
+
+        fprintf(codegen->out, "\tb.eq .Lend%d\n", end_label);
+        codegen_stmt(codegen, stmt->if_stmt.then_branch);
+        fprintf(codegen->out, ".Lend%d:\n", end_label);
+      }
+
       break;
     }
     default: {

@@ -1,7 +1,8 @@
-int f(int a, int b) {
-  if (a < b) {
-    return a;
-  } else {
-    return b;
+int f(int n) {
+  int i = 0;
+  while (i <= n) {
+    i = i + 1;
   }
+
+  return i;
 }

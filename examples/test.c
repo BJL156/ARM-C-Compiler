@@ -1,7 +1,7 @@
-int f(int n) {
-  int sum = 0;
-  for (int i = 0; i < n; i = i + 1) {
-    sum = sum + i;
-  }
-  return sum;
+int add(int a, int b) {
+  return a + b;
+}
+
+int main() {
+  return add(3, 4);
 }

@@ -1,5 +1,6 @@
 #include "codegen.h"
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -168,6 +169,20 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
       fprintf(codegen->out, "\tstr x0, [x29, #%d]\n", offset);
       break;
     }
+    case EXPR_CALL: {
+      for (int i = 0; i < expr->call.args.count; i++) {
+        codegen_expr(codegen, expr->call.args.items[i]);
+        fprintf(codegen->out, "\tstr x0, [sp, #-16]!\n");
+      }
+
+      for (int i = expr->call.args.count - 1; i >= 0; i--) {
+        fprintf(codegen->out, "\tldr x%d, [sp], #16\n", i);
+      }
+
+      fprintf(codegen->out, "\tbl %s\n", expr->call.name);
+
+      break;
+    }
     default: {
       fprintf(stderr, "Error: codegen not implemented for expression type: %d.\n", expr->type);
       exit(1);
@@ -324,6 +339,25 @@ void codegen_function(CodeGen *codegen, Function *fn) {
 }
 
 void codegen_program(CodeGen *codegen, Program *program) {
+  bool has_main = false;
+  for (int i = 0; i < program->count; i++) {
+    if (strcmp(program->items[i].name, "main") == 0) {
+      has_main = true;
+      break;
+    }
+  }
+
+  if (!has_main) {
+    fprintf(stderr, "Error: no main function found.\n");
+    exit(1);
+  }
+
+  fprintf(codegen->out, ".global _start\n");
+  fprintf(codegen->out, "_start:\n");
+  fprintf(codegen->out, "\tbl main\n");
+  fprintf(codegen->out, "\tmov x8, #93\n");
+  fprintf(codegen->out, "\tsvc #0\n");
+
   for (int i = 0; i < program->count; i++) {
     codegen_function(codegen, &program->items[i]);
   }

@@ -47,40 +47,40 @@ $ ./build/compiler ./examples/add.s ./build/add
 $ cat ./build/add
 .global _start
 _start:
-        bl main
-        mov x8, #93
-        svc #0
+  bl main
+  mov x8, #93
+  svc #0
 add:
-        stp x29, x30, [sp, #-16]!
-        mov x29, sp
-        sub sp, sp, #16
-        str x0, [x29, #-8]
-        str x1, [x29, #-16]
-        ldr x0, [x29, #-8]
-        str x0, [sp, #-16]!
-        ldr x0, [x29, #-16]
-        ldr x1, [sp], #16
-        add x0, x1, x0
-        b .Lend0
+  stp x29, x30, [sp, #-16]!
+  mov x29, sp
+  sub sp, sp, #16
+  str x0, [x29, #-8]
+  str x1, [x29, #-16]
+  ldr x0, [x29, #-8]
+  str x0, [sp, #-16]!
+  ldr x0, [x29, #-16]
+  ldr x1, [sp], #16
+  add x0, x1, x0
+  b .Lend0
 .Lend0:
-        add sp, sp, #16
-        ldp x29, x30, [sp], #16
-        ret
+  add sp, sp, #16
+  ldp x29, x30, [sp], #16
+  ret
 main:
-        stp x29, x30, [sp, #-16]!
-        mov x29, sp
-        sub sp, sp, #0
-        mov x0, #5
-        str x0, [sp, #-16]!
-        mov x0, #6
-        str x0, [sp, #-16]!
-        ldr x1, [sp], #16
-        ldr x0, [sp], #16
-        bl add
-        b .Lend1
+  stp x29, x30, [sp, #-16]!
+  mov x29, sp
+  sub sp, sp, #0
+  mov x0, #5
+  str x0, [sp, #-16]!
+  mov x0, #6
+  str x0, [sp, #-16]!
+  ldr x1, [sp], #16
+  ldr x0, [sp], #16
+  bl add
+  b .Lend1
 .Lend1:
-        add sp, sp, #0
-        ldp x29, x30, [sp], #16
-        ret
+  add sp, sp, #0
+  ldp x29, x30, [sp], #16
+  ret
 ```
 The program can then be assembled using: [ARM Assembler](https://github.com/BJL156/ARM-Assembler).

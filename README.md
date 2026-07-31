@@ -32,7 +32,7 @@ The final executable will be written to: `build/compiler`.
 
 ## Example
 ### Input (`examples/add.c`)
-```c
+```C
 int add(int a, int b) {
   return a + b;
 }
@@ -43,8 +43,8 @@ int main() {
 ```
 ### Output
 ```bash
-$ ./build/compiler ./examples/add.s ./build/add
-$ cat ./build/add
+$ ./build/compiler ./examples/add.s ./build/add.s
+$ cat ./build/add.s
 .global _start
 _start:
   bl main

@@ -89,3 +89,9 @@ main:
   ret
 ```
 The program can then be assembled using: [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
+
+## Current Limitations
+- no IR support.
+- Single-file C programs only.
+- no C standard library support.
+- No code generation optimizations.

@@ -7,6 +7,11 @@ A lightweight, zero-dependency C compiler written from scratch in C. It compiles
 
 This C compiler follows the next stage of my compiler AArch64 toolchain. It continues from my last project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler) by allowing C to be translated into assembly for my assembler to translate directly into an ELF64 executable. 
 
+## Overview
+<p align="center">
+  <img src="docs/diagram.svg" width="800">
+</p>
+
 ## Build
 > [!NOTE]
 > **Needs to be built on Linux. For Windows, use WSL.**

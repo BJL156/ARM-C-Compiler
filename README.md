@@ -3,9 +3,14 @@
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20WSL-lightgrey.svg)](https://www.linux.org/)
 [![Architecture](https://img.shields.io/badge/target-AArch64-red.svg)](https://developer.arm.com/Architectures/AArch64)
 
-A lightweight, zero-dependency C compiler written from scratch in C. It compiles C source code into AArch64 source code. It can then be assembled using an assembler such as GAS or by using the previous project's assembler [ARM C Assembler](https://github.com/BJL156/ARM-Assembler).
+A lightweight, zero-dependency C compiler written from scratch in C. It compiles C source code into AArch64 source code. It can then be assembled using GAS or the previous project's assembler [ARM C Assembler](https://github.com/BJL156/ARM-Assembler).
 
-This C compiler follows the next stage of my compiler AArch64 toolchain. It continues from my last project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler) by allowing C to be translated into assembly for my assembler to translate directly into an ELF64 executable. 
+This C compiler follows the next stage of my compiler AArch64 toolchain. It continues from my last project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler) by allowing C source code to be translated into assembly for use with my assembler to generate ELF64 executables. 
+
+## Overview
+<p align="center">
+  <img src="docs/diagram.svg" width="800">
+</p>
 
 ## Build
 > [!NOTE]
@@ -84,3 +89,9 @@ main:
   ret
 ```
 The program can then be assembled using: [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
+
+## Current Limitations
+- no IR support.
+- Single-file C programs only.
+- no C standard library support.
+- No code generation optimizations.

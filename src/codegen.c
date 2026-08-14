@@ -1,5 +1,6 @@
 #include "codegen.h"
 
+#include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -182,8 +183,14 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
       break;
     }
     case EXPR_UNARY: {
-      codegen_expr(codegen, expr->unary.operand);
+      if (expr->unary.op == TOKEN_AMP) {
+        int offset = lookup_symbol(codegen, expr->unary.operand->name);
+        fprintf(codegen->out, "\tsub x0, x29, #%d\n", -offset);
 
+        break;
+      }
+
+      codegen_expr(codegen, expr->unary.operand);
       switch (expr->unary.op) {
         case TOKEN_MINUS: {
           fprintf(codegen->out, "\tneg x0, x0\n");
@@ -192,6 +199,10 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
         case TOKEN_NOT: {
           fprintf(codegen->out, "\tcmp x0, #0\n");
           codegen_bool_from_flags(codegen, "eq");
+          break;
+        }
+        case TOKEN_STAR: {
+          fprintf(codegen->out, "\tldr x0, [x0]\n");
           break;
         }
         default: {
@@ -203,10 +214,18 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
       break;
     }
     case EXPR_ASSIGN: {
-      codegen_expr(codegen, expr->assign.value);
-      int offset = lookup_symbol(codegen, expr->assign.target->name);
+      if (expr->assign.target->type == EXPR_IDENTIFIER) {
+        codegen_expr(codegen, expr->assign.value);
+        int offset = lookup_symbol(codegen, expr->assign.target->name);
+        fprintf(codegen->out, "\tstr x0, [x29, #%d]\n", offset);
+      } else if (expr->assign.target->type == EXPR_UNARY) {
+        codegen_expr(codegen, expr->assign.target->unary.operand);
+        fprintf(codegen->out, "\tstr x0, [sp, #-16]!\n");
+        codegen_expr(codegen, expr->assign.value);
+        fprintf(codegen->out, "\tldr x1, [sp], #16\n");
+        fprintf(codegen->out, "\tstr x0, [x1]\n");
+      }
 
-      fprintf(codegen->out, "\tstr x0, [x29, #%d]\n", offset);
       break;
     }
     case EXPR_CALL: {

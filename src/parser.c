@@ -243,7 +243,7 @@ Expr *parse_assignment(Parser *parser) {
     advance(parser);
     Expr *value = parse_assignment(parser);
 
-    if (left->type != EXPR_IDENTIFIER) {
+    if (left->type != EXPR_IDENTIFIER && !(left->type == EXPR_UNARY && left->unary.op == TOKEN_STAR)) {
       fprintf(stderr, "Error: invalid assigment target at line: %d.\n", parser->previous.line);
       exit(1);
     }

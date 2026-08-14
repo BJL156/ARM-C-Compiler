@@ -75,6 +75,46 @@ void codegen_expr(CodeGen *codegen, Expr *expr) {
       break;
     }
     case EXPR_BINARY: {
+      if (expr->binary.op == TOKEN_AND_AND) {
+        int false_label = codegen->label_count++;
+        int end_label = codegen->label_count++;
+
+        codegen_expr(codegen, expr->binary.left);
+        fprintf(codegen->out, "\tcmp x0, #0\n");
+        fprintf(codegen->out, "\tb.eq .Lfalse%d\n", false_label);
+
+        codegen_expr(codegen, expr->binary.right);
+        fprintf(codegen->out, "\tcmp x0, #0\n");
+        fprintf(codegen->out, "\tb.eq .Lfalse%d\n", false_label);
+
+        fprintf(codegen->out, "\tmov x0, #1\n");
+        fprintf(codegen->out, "\tb .Lend%d\n", end_label);
+        fprintf(codegen->out, ".Lfalse%d:\n", false_label);
+        fprintf(codegen->out, "\tmov x0, #0\n");
+        fprintf(codegen->out, ".Lend%d:\n", end_label);
+
+        break;
+      } else if (expr->binary.op == TOKEN_OR_OR) {
+        int true_label = codegen->label_count++;
+        int end_label = codegen->label_count++;
+
+        codegen_expr(codegen, expr->binary.left);
+        fprintf(codegen->out, "\tcmp x0, #0\n");
+        fprintf(codegen->out, "\tb.ne .Ltrue%d\n", true_label);
+
+        codegen_expr(codegen, expr->binary.right);
+        fprintf(codegen->out, "\tcmp x0, #0\n");
+        fprintf(codegen->out, "\tb.ne .Ltrue%d\n", true_label);
+
+        fprintf(codegen->out, "\tmov x0, #0\n");
+        fprintf(codegen->out, "\tb .Lend%d\n", end_label);
+        fprintf(codegen->out, ".Ltrue%d:\n", true_label);
+        fprintf(codegen->out, "\tmov x0, #1\n");
+        fprintf(codegen->out, ".Lend%d:\n", end_label);
+
+        break;
+      }
+
       codegen_expr(codegen, expr->binary.left);
       fprintf(codegen->out, "\tstr x0, [sp, #-16]!\n");
       codegen_expr(codegen, expr->binary.right);

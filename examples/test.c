@@ -1,7 +1,7 @@
-int add(int a, int b) {
-  return a + b;
+int f(int a, int b) {
+  return a < b && b < 10;
 }
 
 int main() {
-  return add(3, 4);
+  return f(3, 14);
 }

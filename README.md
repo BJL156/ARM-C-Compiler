@@ -48,7 +48,7 @@ int main() {
 ```
 ### Output
 ```bash
-$ ./build/compiler ./examples/add.s ./build/add.s
+$ ./build/compiler ./examples/add.c ./build/add.s
 $ cat ./build/add.s
 .global _start
 _start:

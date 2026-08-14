@@ -90,6 +90,25 @@ main:
 ```
 The program can then be assembled using: [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
 
+## Features
+- Lexer.
+  - [x] Converts C source into tokens.
+  - [x] Handles whitespace.
+  - [x] Scans:
+    - [x] End of file (`EOF`).
+    - [x] Keywords (`int`, `char`, `void`, `if`, `else`, `while`, `for`, `return`).
+    - [x] Identifiers and literals.
+    - [x] Arithmetic and comparison operations.
+- Parser.
+  - [x] Converts tokens into an AST of statements and expressions.
+  - [x] Variable declarations (`int`, `char`, pointers).
+  - [x] Control flow (`if`, `else`, `while`, `for`).
+  - [x] Expressions (binary, unary, assignment, function calls).
+  - [x] Pointers.
+- Code Generator.
+  - [x] Outputs AArch64 assembly of AST.
+  - [x] Handles function prologue and epilogue.
+
 ## Current Limitations
 - no IR support.
 - Single-file C programs only.

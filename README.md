@@ -19,7 +19,7 @@ This C compiler follows the next stage of my compiler AArch64 toolchain. It cont
 Clone the repository and change into its directory:
 ```bash
 git clone https://github.com/BJL156/ARM-C-Compiler
-cd ARM-C-Assembler
+cd ARM-C-Compiler
 ```
 Then use CMake:
 ```bash

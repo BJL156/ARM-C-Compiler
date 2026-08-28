@@ -36,59 +36,32 @@ The final executable will be written to: `build/compiler`.
 ```
 
 ## Example
-### Input (`examples/add.c`)
+### Input ([examples/factorial.c](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/factorial.c))
 ```C
-int add(int a, int b) {
-  return a + b;
+int factorial(int n) {
+  int result = 1;
+
+  while (n > 1) {
+    result = result * n;
+    n = n - 1;
+  }
+
+  return result;
 }
 
 int main() {
-  return add(5, 6);
+  return factorial(5);
 }
 ```
-### Output
+### Build and Run
 ```bash
-$ ./build/compiler ./examples/add.c ./build/add.s
-$ cat ./build/add.s
-.global _start
-_start:
-  bl main
-  mov x8, #93
-  svc #0
-add:
-  stp x29, x30, [sp, #-16]!
-  mov x29, sp
-  sub sp, sp, #16
-  str x0, [x29, #-8]
-  str x1, [x29, #-16]
-  ldr x0, [x29, #-8]
-  str x0, [sp, #-16]!
-  ldr x0, [x29, #-16]
-  ldr x1, [sp], #16
-  add x0, x1, x0
-  b .Lend0
-.Lend0:
-  add sp, sp, #16
-  ldp x29, x30, [sp], #16
-  ret
-main:
-  stp x29, x30, [sp, #-16]!
-  mov x29, sp
-  sub sp, sp, #0
-  mov x0, #5
-  str x0, [sp, #-16]!
-  mov x0, #6
-  str x0, [sp, #-16]!
-  ldr x1, [sp], #16
-  ldr x0, [sp], #16
-  bl add
-  b .Lend1
-.Lend1:
-  add sp, sp, #0
-  ldp x29, x30, [sp], #16
-  ret
+$ ./build/compiler ./examples/factorial.c ./examples/generated/factorial.s
+$ ./build/assembler ./examples/generated/factorial.s ./build/factorial.out
+$ ./build/factorial.out
+$ echo $?
+120
 ```
-The program can then be assembled using: [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
+The generated assembly can be found at: [examples/generated/factorial.s](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/generated/factorial.s)
 
 ## Features
 - Lexer.

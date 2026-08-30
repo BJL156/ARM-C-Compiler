@@ -32,7 +32,7 @@ The compiler currently supports a subset of C, including:
 Clone the repository and change into its directory:
 ```bash
 git clone https://github.com/BJL156/ARM-C-Compiler
-cd ARM-C-Compiler
+cd ./ARM-C-Compiler
 ```
 Then use CMake:
 ```bash

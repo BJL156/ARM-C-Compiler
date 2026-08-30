@@ -39,7 +39,7 @@ Then use CMake:
 cmake -B build
 cmake --build build
 ```
-The final executable will be written to: `build/compiler`.
+The final executable will be written to: `./build/compiler`.
 
 ## Usage
 ```bash
@@ -49,7 +49,7 @@ The final executable will be written to: `build/compiler`.
 ```
 
 ## Example
-### Input ([examples/factorial.c](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/factorial.c))
+### Input ([./examples/factorial.c](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/factorial.c))
 ```C
 int factorial(int n) {
   int result = 1;
@@ -80,7 +80,7 @@ $ echo $?
 120
 ```
 > [!TIP]
-> **Generated assembly:** [examples/generated/factorial.s](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/generated/factorial.s)
+> **Generated assembly:** [./examples/generated/factorial.s](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/generated/factorial.s)
 
 ## Features
 - Lexer.
@@ -88,14 +88,14 @@ $ echo $?
   - [x] Handles whitespace.
   - [x] Scans:
     - [x] End of file (`EOF`).
-    - [x] Keywords (`int`, `char`, `void`, `if`, `else`, `while`, `for`, `return`).
+    - [x] Keywords.
     - [x] Identifiers and literals.
     - [x] Arithmetic and comparison operations.
 - Parser.
   - [x] Converts tokens into an AST of statements and expressions.
-  - [x] Variable declarations (`int`, `char`, pointers).
-  - [x] Control flow (`if`, `else`, `while`, `for`).
-  - [x] Expressions (binary, unary, assignment, function calls).
+  - [x] Variable declarations.
+  - [x] Control flow.
+  - [x] Expressions.
   - [x] Pointers.
 - Code Generator.
   - [x] Outputs AArch64 assembly of AST.

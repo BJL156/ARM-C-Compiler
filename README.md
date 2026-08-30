@@ -12,6 +12,19 @@ This C compiler follows the next stage of my AArch64 toolchain by continuing fro
   <img src="docs/diagram.svg" width="800">
 </p>
 
+## Supported C
+The compiler currently supports a subset of C, including:
+- `int`, `char`, and `void` types.
+- Variables and variable declarations.
+- Functions and function calls.
+- `if`/`else` statements.
+- `while` and `for` loops.
+- `return` statements.
+- Arithmetic and comparison operations.
+- Unary expressions.
+- Assignment expressions.
+- Pointers.
+
 ## Build
 > [!NOTE]
 > **Needs to be built on Linux. For Windows, use WSL.**
@@ -55,8 +68,13 @@ int main() {
 ```
 ### Build and Run
 ```bash
+# ARM C Compiler:
 $ ./build/compiler ./examples/factorial.c ./examples/generated/factorial.s
+
+# ARM Assembler:
 $ ./build/assembler ./examples/generated/factorial.s ./build/factorial.out
+
+# Run:
 $ ./build/factorial.out
 $ echo $?
 120

@@ -61,7 +61,8 @@ $ ./build/factorial.out
 $ echo $?
 120
 ```
-The generated assembly can be found at: [examples/generated/factorial.s](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/generated/factorial.s)
+> [!TIP]
+> **Generated assembly:** [examples/generated/factorial.s](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/generated/factorial.s)
 
 ## Features
 - Lexer.

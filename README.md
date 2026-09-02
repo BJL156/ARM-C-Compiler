@@ -3,9 +3,9 @@
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20WSL-lightgrey.svg)](https://www.linux.org/)
 [![Architecture](https://img.shields.io/badge/target-AArch64-red.svg)](https://developer.arm.com/Architectures/AArch64)
 
-A lightweight, zero-dependency C compiler written from scratch. It compiles C source code into AArch64 assembly which can then it can be assembled using GAS or [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
+A lightweight, zero-dependency C compiler written from scratch. It compiles C source code into AArch64 assembly, which can then it can be assembled using GAS or [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
 
-This C compiler follows the next stage of my AArch64 toolchain by continuing from my last project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler) by having a toolchain that goes from C source code all the way down to an ELF64.
+This C compiler is the next stage of my AArch64 toolchain, continuing from my previous project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler). By using both together, they create a toolchain that goes from C source code all the way down to an ELF64 executable.
 
 ## Architecture
 <p align="center">
@@ -13,13 +13,13 @@ This C compiler follows the next stage of my AArch64 toolchain by continuing fro
 </p>
 
 ### Lexer
-Reads C source code and converts it to a sequence of tokens. It handles keywords, identifiers, literals, and operators.
+Reads C source code and converts it to a sequence of tokens. It handles whitespace, keywords, identifiers, literals, and operators.
 
 ### Parser
-Produces an abstract syntax tree (AST) that represents the structure of the program. It handles declarations, statements, expressions, control flow, and pointers.
+Builds an abstract syntax tree (AST) that represents the structure of the program. It handles declarations, statements, expressions, control flow, and pointers.
 
 ### Code Generation
-Moves through the AST and produces AArch64 assembly. It handles function prologue/epilogue, variables, operators, and the program's entry point.
+Traverses the AST and produces AArch64 assembly. It handles function prologue/epilogue, variables, operators, and the program's entry point.
 
 ## Supported C
 The compiler currently supports a subset of C, including:

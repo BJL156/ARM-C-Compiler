@@ -12,7 +12,7 @@ This C compiler follows the next stage of my AArch64 toolchain by continuing fro
   <img src="docs/diagram.svg" width="800">
 </p>
 
-## Supported C
+## Supported C Features
 The compiler currently supports a subset of C, including:
 - `int`, `char`, and `void` types.
 - Variables and variable declarations.

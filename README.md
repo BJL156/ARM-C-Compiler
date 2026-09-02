@@ -7,12 +7,21 @@ A lightweight, zero-dependency C compiler written from scratch. It compiles C so
 
 This C compiler follows the next stage of my AArch64 toolchain by continuing from my last project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler) by having a toolchain that goes from C source code all the way down to an ELF64.
 
-## Overview
+## Architecture
 <p align="center">
   <img src="docs/diagram.svg" width="800">
 </p>
 
-## Supported C Features
+### Lexer
+Reads C source code and converts it to a sequence of tokens. It handles keywords, identifiers, literals, and operators.
+
+### Parser
+Produces an abstract syntax tree (AST) that represents the structure of the program. It handles declarations, statements, expressions, control flow, and pointers.
+
+### Code Generation
+Moves through the AST and produces AArch64 assembly. It handles function prologue/epilogue, variables, operators, and the program's entry point.
+
+## Supported C
 The compiler currently supports a subset of C, including:
 - `int`, `char`, and `void` types.
 - Variables and variable declarations.
@@ -82,27 +91,8 @@ $ echo $?
 > [!TIP]
 > **Generated assembly:** [./examples/generated/factorial.s](https://github.com/BJL156/ARM-C-Compiler/blob/main/examples/generated/factorial.s)
 
-## Features
-- Lexer.
-  - [x] Converts C source into tokens.
-  - [x] Handles whitespace.
-  - [x] Scans:
-    - [x] End of file (`EOF`).
-    - [x] Keywords.
-    - [x] Identifiers and literals.
-    - [x] Arithmetic and comparison operations.
-- Parser.
-  - [x] Converts tokens into an AST of statements and expressions.
-  - [x] Variable declarations.
-  - [x] Control flow.
-  - [x] Expressions.
-  - [x] Pointers.
-- Code Generator.
-  - [x] Outputs AArch64 assembly of AST.
-  - [x] Handles function prologue and epilogue.
-
 ## Current Limitations
-- no IR support.
+- No IR support.
 - Single-file C programs only.
-- no C standard library support.
+- No C standard library support.
 - No code generation optimizations.

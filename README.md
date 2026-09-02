@@ -9,7 +9,7 @@ This C compiler is the next stage of my AArch64 toolchain, continuing from my pr
 
 ## Architecture
 <p align="center">
-  <img src="docs/diagram.svg" width="800">
+  <img src="docs/architecture_diagram.svg" width="300">
 </p>
 
 ### Lexer

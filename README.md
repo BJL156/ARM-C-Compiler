@@ -12,6 +12,9 @@ This C compiler is the next stage of my AArch64 toolchain, continuing from my pr
   <img src="docs/architecture_diagram.svg" width="300">
 </p>
 
+- **Solid border**: ARM C Compiler components
+- **Dashed border**: External toolchain components
+
 ### Lexer
 Reads C source code and converts it to a sequence of tokens. It handles whitespace, keywords, identifiers, literals, and operators.
 

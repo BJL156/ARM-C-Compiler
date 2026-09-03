@@ -3,7 +3,7 @@
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20WSL-lightgrey.svg)](https://www.linux.org/)
 [![Architecture](https://img.shields.io/badge/target-AArch64-red.svg)](https://developer.arm.com/Architectures/AArch64)
 
-A lightweight, zero-dependency C compiler written from scratch. It compiles C source code into AArch64 assembly which can then it can be assembled using GAS or [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
+A lightweight, zero-dependency C compiler written from scratch. It compiles C source code into AArch64 assembly, which can then be assembled using GAS or [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
 
 This C compiler is the next stage of my AArch64 toolchain, continuing from my previous project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler). By using both together, they create a toolchain that goes from C source code all the way down to an ELF64 executable.
 
@@ -22,9 +22,9 @@ Reads C source code and converts it to a sequence of tokens. It handles whitespa
 Builds an abstract syntax tree (AST) that represents the structure of the program. It handles declarations, statements, expressions, control flow, and pointers.
 
 ### Code Generation
-Traverses the AST and produces AArch64 assembly. It handles function prologue/epilogue, variables, operators, and the program's entry point.
+Traverses the AST and produces AArch64 assembly. It handles function prologues and epilogues, variables, operators, and the program entry point.
 
-## Supported C
+## Supported C Features
 The compiler currently supports a subset of C, including:
 - `int`, `char`, and `void` types.
 - Variables and variable declarations.
@@ -55,9 +55,9 @@ The final executable will be written to: `./build/compiler`.
 
 ## Usage
 ```bash
-./compiler <file.c> <output>
+./build/compiler <file.c> <output>
   <file.c>  C source file.
-  <output>  Output AArch64 file.
+  <output>  Output AArch64 assembly file.
 ```
 
 ## Example
@@ -78,7 +78,7 @@ int main() {
   return factorial(5);
 }
 ```
-### Build and Run
+### Compile, Assemble, and Run
 ```bash
 # ARM C Compiler:
 $ ./build/compiler ./examples/factorial.c ./examples/generated/factorial.s

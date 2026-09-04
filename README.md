@@ -7,6 +7,19 @@ A lightweight, zero-dependency C compiler written from scratch. It compiles C so
 
 This C compiler is the next stage of my AArch64 toolchain, continuing from my previous project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler). By using both together, they create a toolchain that goes from C source code all the way down to an ELF64 executable.
 
+## Supported C Features
+The compiler currently supports a subset of C, including:
+- `int`, `char`, and `void` types.
+- Variables and variable declarations.
+- Functions and function calls.
+- `if`/`else` statements.
+- `while` and `for` loops.
+- `return` statements.
+- Arithmetic and comparison operations.
+- Unary expressions.
+- Assignment expressions.
+- Pointers.
+
 ## Architecture
 <p align="center">
   <img src="docs/architecture_diagram.svg" width="300">
@@ -23,19 +36,6 @@ Builds an abstract syntax tree (AST) that represents the structure of the progra
 
 ### Code Generation
 Traverses the AST and produces AArch64 assembly. It handles function prologues and epilogues, variables, operators, and the program entry point.
-
-## Supported C Features
-The compiler currently supports a subset of C, including:
-- `int`, `char`, and `void` types.
-- Variables and variable declarations.
-- Functions and function calls.
-- `if`/`else` statements.
-- `while` and `for` loops.
-- `return` statements.
-- Arithmetic and comparison operations.
-- Unary expressions.
-- Assignment expressions.
-- Pointers.
 
 ## Build
 > [!NOTE]

@@ -32,10 +32,10 @@ The compiler currently supports a subset of C, including:
 Reads C source code and converts it to a sequence of tokens. It handles whitespace, keywords, identifiers, literals, and operators.
 
 ### Parser
-Builds an abstract syntax tree (AST) that represents the structure of the program. It handles declarations, statements, expressions, control flow, and pointers.
+Builds an abstract syntax tree (AST) that represents the structure of the program. It handles declarations, statements, expressions, and control flow.
 
 ### Code Generation
-Traverses the AST and produces AArch64 assembly. It handles function prologues and epilogues, variables, operators, and the program entry point.
+Traverses the AST and produces AArch64 assembly. It handles function prologues and epilogues, variables, pointers, operators, and the program entry point.
 
 ## Build
 > [!NOTE]

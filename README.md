@@ -3,7 +3,7 @@
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20WSL-lightgrey.svg)](https://www.linux.org/)
 [![Architecture](https://img.shields.io/badge/target-AArch64-red.svg)](https://developer.arm.com/Architectures/AArch64)
 
-A lightweight, zero-dependency C compiler written from scratch. It compiles C source code into AArch64 assembly, which can then be assembled using GAS or [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
+A lightweight, zero-dependency C compiler written from scratch. It compiles C source code into AArch64 assembly, which can then be assembled using GAS or my custom [ARM Assembler](https://github.com/BJL156/ARM-Assembler).
 
 This C compiler is the next stage of my AArch64 toolchain, continuing from my previous project: [ARM Assembler](https://github.com/BJL156/ARM-Assembler). By using both projects together, they create a toolchain that starts from C source code and goes all the way down to an ELF64 executable.
 

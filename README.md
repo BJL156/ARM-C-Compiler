@@ -35,7 +35,7 @@ Reads C source code and converts it to a sequence of tokens. It handles whitespa
 Builds an abstract syntax tree (AST) that represents the structure of the program. It handles declarations, statements, expressions, and control flow.
 
 ### Code Generation
-Traverses the AST and produces AArch64 assembly. It handles function prologues and epilogues, variables, pointers, operators, and the program entry point.
+Traverses the AST and produces AArch64 assembly. It handles function prologues and epilogues, variables, pointers, operators, and the program entry point by recognizing the main function.
 
 ## Build
 > [!NOTE]
